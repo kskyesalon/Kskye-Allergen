@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="K. Skye Allergens">
+<title>K. Skye Salon - Allergen Safety</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--sage:#5C8A66;--sage-dark:#3d6147;--sage-light:#8fb87f;--sage-mist:#e8f0e8;--sage-pale:#f2f7f2;--cream:#faf8f4;--bark:#2c3028;--stone:#6b6f67;--petal:#c0392b;--petal-light:#ffebee;--petal-border:#ffcdd2;--leaf:#2E7D32;--leaf-light:#E8F5E9;--border:#dce8dc;--shadow:0 2px 16px rgba(44,48,40,0.08);--r:14px;--r-sm:8px}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--bark);min-height:100vh}
+.header{background:linear-gradient(135deg,var(--sage-dark) 0%,var(--sage) 60%,var(--sage-light) 100%);padding:20px 24px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(44,48,40,0.2)}
+.hst{font-size:10px;letter-spacing:3px;text-transform:uppercase;opacity:.75;margin-bottom:3px;font-weight:500;color:white}
+.hn{font-family:'DM Serif Display',serif;font-size:20px;line-height:1.2;color:white}
+.hbadges{display:flex;gap:8px;flex-direction:column;align-items:flex-end}
+.badge{background:rgba(255,255,255,0.2);color:white;border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;white-space:nowrap}
+.tabs{background:white;border-bottom:1px solid var(--border);display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;position:sticky;top:73px;z-index:99}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1;min-width:110px;padding:14px 12px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--stone);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap}
+.tab.active{color:var(--sage);border-bottom-color:var(--sage);font-weight:700}
+.main{padding:20px 16px;max-width:1100px;margin:0 auto}
+.page{display:none}.page.active{display:block}
+label.lbl{display:block;font-size:10px;font-weight:700;color:var(--sage);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+input,select,textarea{width:100%;padding:11px 14px;border-radius:var(--r-sm);border:1.5px solid var(--border);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--bark);background:white;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
+input:focus,select:focus,textarea:focus{border-color:var(--sage)}
+textarea{resize:vertical;min-height:80px}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.full{grid-column:1/-1}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:11px 20px;border-radius:var(--r-sm);border:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-p{background:var(--sage);color:white}.btn-p:active{background:var(--sage-dark);transform:scale(.98)}
+.btn-g{background:var(--sage-pale);color:var(--stone)}
+.btn-sm{padding:7px 14px;font-size:12px}
+.brow{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.pill-br{color:white}
+.pill-ct{background:var(--sage-pale);color:var(--stone)}
+.pill-i{background:#f4f6f4;color:#555;border:1px solid #e8ede8}
+.pill-i.danger{background:var(--petal-light);color:var(--petal);border-color:var(--petal-border);font-weight:700}
+.pill-al{background:var(--petal-light);color:var(--petal);border:1.5px solid var(--petal-border);padding:4px 12px;font-size:12px}
+.ptog{padding:7px 14px;font-size:12px;border-radius:20px;border:1.5px solid var(--border);background:white;color:var(--stone);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;font-weight:500}
+.ptog.sel{background:var(--petal-light);color:var(--petal);border-color:var(--petal-border);font-weight:700}
+.srow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.sbox{border-radius:var(--r);padding:16px 12px;text-align:center}
+.sbox.g{background:var(--leaf-light)}.sbox.r{background:var(--petal-light)}.sbox.n{background:var(--sage-pale)}
+.snum{font-family:'DM Serif Display',serif;font-size:36px;line-height:1}
+.snum.g{color:var(--leaf)}.snum.r{color:var(--petal)}.snum.n{color:var(--sage)}
+.slbl{font-size:11px;font-weight:600;margin-top:4px}
+.slbl.g{color:#388E3C}.slbl.r{color:#D32F2F}.slbl.n{color:var(--sage)}
+.cbar{background:white;border-radius:var(--r);padding:16px;box-shadow:var(--shadow);border:1.5px solid var(--border);margin-bottom:16px}
+.apanel{margin-top:12px;padding:12px 14px;background:var(--petal-light);border:1.5px solid var(--petal-border);border-radius:var(--r-sm)}
+.aptitle{font-size:10px;font-weight:700;color:var(--petal);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px}
+.prow{display:flex;flex-wrap:wrap;gap:6px}
+.frow{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.frow input{flex:1;min-width:180px}
+.frow select{flex:0 1 140px;min-width:120px}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.pcard{background:white;border-radius:var(--r);padding:16px;border:2px solid var(--border);box-shadow:var(--shadow);cursor:pointer;transition:transform .15s}
+.pcard:active{transform:scale(.99)}
+.pcard.sc{border-color:#a5d6a7}.pcard.uc{border-color:#ef9a9a}
+.pch{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.pcb{display:flex;gap:6px;flex-wrap:wrap}
+.pname{font-weight:600;font-size:14px;line-height:1.4;margin-bottom:6px}
+.abox{background:#FFF3F3;border-radius:8px;padding:9px 11px;margin-bottom:8px}
+.atitle{font-size:10px;font-weight:800;color:var(--petal);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.exps{margin-top:10px;padding-top:10px;border-top:1px solid var(--sage-mist)}
+.expl{font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.th{font-size:11px;color:#bbb;margin-top:8px}
+.bsec{background:white;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);margin-bottom:12px}
+.bh{padding:12px 18px;color:white;font-weight:700;font-size:13px;letter-spacing:1px;display:flex;justify-content:space-between;align-items:center}
+.bh span{opacity:.8;font-weight:400;font-size:12px}
+.bpr{padding:14px 18px;border-bottom:1px solid var(--sage-pale)}
+.bpr:last-child{border-bottom:none}
+.bpt{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.bpn{font-weight:600;font-size:14px}
+.ic{font-size:11px;color:#bbb}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.ccard{background:white;border-radius:var(--r);padding:18px;box-shadow:var(--shadow);border:2px solid var(--border)}
+.cch{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.cname{font-family:'DM Serif Display',serif;font-size:18px}
+.csafe{border-radius:8px;padding:10px 12px;margin-top:10px}
+.csafe.s{background:var(--leaf-light);color:var(--leaf)}.csafe.u{background:var(--petal-light);color:var(--petal)}
+.csafe span{font-size:13px;font-weight:700}
+.ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+.phd{font-family:'DM Serif Display',serif;font-size:22px;color:var(--sage-dark)}
+.aform{background:white;border-radius:var(--r);padding:20px;box-shadow:var(--shadow);border:2px solid var(--sage-light);margin-bottom:16px;animation:sd .2s ease}
+.aform h3{font-family:'DM Serif Display',serif;font-size:17px;color:var(--sage-dark);margin-bottom:16px}
+@keyframes sd{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.crow{display:flex;gap:8px}
+.crow input{flex:1}
+.empty{text-align:center;padding:48px 24px;color:var(--stone)}
+.ei{font-size:48px;margin-bottom:12px}
+.et{font-size:15px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--bark);color:white;padding:12px 24px;border-radius:30px;font-size:13px;font-weight:600;z-index:999;transition:transform .3s;box-shadow:0 4px 24px rgba(44,48,40,0.2);white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+@media(max-width:600px){.hn{font-size:17px}.main{padding:16px 12px}.fg{grid-template-columns:1fr}.snum{font-size:28px}.pgrid{grid-template-columns:1fr}.cgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div><div class="hst">K. Skye Salon &middot; New Brunswick</div><div class="hn">&#127807; Allergen Safety</div></div>
+  <div class="hbadges"><div class="badge" id="bp">17 products</div><div class="badge" id="bc">3 clients</div></div>
+</div>
+<div class="tabs">
+  <button class="tab active" onclick="showPage('checker',this)">&#128269; Client Checker</button>
+  <button class="tab" onclick="showPage('products',this)">&#129516; Products</button>
+  <button class="tab" onclick="showPage('clients',this)">&#128100; Clients</button>
+</div>
+<div class="main">
+  <div class="page active" id="page-checker">
+    <div class="cbar">
+      <label class="lbl">Select Client</label>
+      <select id="cs" onchange="onCS()"><option value="">&#8212; No client selected (show all products) &#8212;</option></select>
+      <div id="ap" class="apanel" style="display:none"><div class="aptitle">&#9888;&#65039; Known Allergens</div><div class="prow" id="apills"></div></div>
+    </div>
+    <div id="sr" class="srow" style="display:none">
+      <div class="sbox g"><div class="snum g" id="ss">0</div><div class="slbl g">&#9989; Safe</div></div>
+      <div class="sbox r"><div class="snum r" id="su">0</div><div class="slbl r">&#128683; Avoid</div></div>
+      <div class="sbox n"><div class="snum n" id="st">0</div><div class="slbl n">&#128230; Shown</div></div>
+    </div>
+    <div class="frow">
+      <input type="text" id="si" placeholder="&#128269; Search product or ingredient&#8230;" oninput="rC()">
+      <select id="fb" onchange="rC()"><option value="">All Brands</option><option>PHYTO</option><option>OWAY</option><option>PAUL MITCHELL</option><option>INFLUENCE</option></select>
+      <select id="fc" onchange="rC()"><option value="">All Categories</option><option>Shampoo</option><option>Conditioner</option><option>Treatment</option><option>Styling</option><option>Color</option></select>
+    </div>
+    <div class="pgrid" id="pg"></div>
+  </div>
+  <div class="page" id="page-products">
+    <div class="ph"><div class="phd">Product Library</div><button class="btn btn-p btn-sm" onclick="tAP()">&#65291; Add Product</button></div>
+    <div id="apf" class="aform" style="display:none">
+      <h3>Add New Product</h3>
+      <div class="fg">
+        <div><label class="lbl">Brand</label><select id="npb"><option>PHYTO</option><option>OWAY</option><option>PAUL MITCHELL</option><option>INFLUENCE</option></select></div>
+        <div><label class="lbl">Category</label><select id="npc"><option>Shampoo</option><option>Conditioner</option><option>Treatment</option><option>Styling</option><option>Color</option></select></div>
+        <div class="full"><label class="lbl">Product Name</label><input type="text" id="npn" placeholder="e.g. Smoothing Serum"></div>
+        <div class="full"><label class="lbl">Ingredients &#8212; copy from bottle, comma-separated</label><textarea id="npi" placeholder="Aqua, Sodium Laureth Sulfate, Parfum, Linalool, &#8230;"></textarea></div>
+      </div>
+      <div class="brow"><button class="btn btn-p" onclick="sP()">Save Product</button><button class="btn btn-g" onclick="tAP()">Cancel</button></div>
+    </div>
+    <div id="bs"></div>
+  </div>
+  <div class="page" id="page-clients">
+    <div class="ph"><div class="phd">Client Profiles</div><button class="btn btn-p btn-sm" onclick="tAC()">&#65291; Add Client</button></div>
+    <div id="acf" class="aform" style="display:none">
+      <h3>New Client Allergen Profile</h3>
+      <label class="lbl">Client Name</label>
+      <input type="text" id="ncn" placeholder="e.g. Michelle K." style="max-width:320px;margin-bottom:16px">
+      <label class="lbl" style="margin-bottom:10px">Select Known Allergens &#8212; tap to toggle</label>
+      <div class="prow" id="at"></div>
+      <div class="crow" style="margin-top:14px;margin-bottom:14px">
+        <input type="text" id="ncc" placeholder="Add custom ingredient&#8230;" onkeydown="if(event.key==='Enter')aCA()">
+        <button class="btn btn-g btn-sm" onclick="aCA()">&#65291; Add</button>
+      </div>
+      <div id="sap" style="display:none;margin-bottom:16px">
+        <div style="font-size:12px;color:var(--stone);margin-bottom:6px" id="sc2">0 selected</div>
+        <div class="prow" id="spp"></div>
+      </div>
+      <div class="brow"><button class="btn btn-p" onclick="sCl()">Save Client</button><button class="btn btn-g" onclick="cAC()">Cancel</button></div>
+    </div>
+    <div class="cgrid" id="cg"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const BC={PHYTO:"#7B9E6B",OWAY:"#5C8A66","PAUL MITCHELL":"#3A6B4A",INFLUENCE:"#8FB87F"};
+const AL=["Parfum","Linalool","Limonene","Geraniol","Citronellol","Eugenol","Benzyl Alcohol","Benzyl Benzoate","p-Phenylenediamine","Resorcinol","Formaldehyde Releaser","DMDM Hydantoin","Methylisothiazolinone","Methylchloroisothiazolinone","Propylene Glycol","Dimethicone","Sodium Laureth Sulfate","Wheat Protein","Keratin","Cocamidopropyl Betaine","Parabens","Lanolin"];
+const DP=[
+{id:1,brand:"PHYTO",name:"Phytokeratine Reparative Shampoo",category:"Shampoo",ingredients:["Aqua","Sodium Laureth Sulfate","Cocamidopropyl Betaine","Keratin","Wheat Protein","Glycerin","Panthenol","Citric Acid","Parfum","Phenoxyethanol"]},
+{id:2,brand:"PHYTO",name:"Phytojoba Moisturizing Shampoo",category:"Shampoo",ingredients:["Aqua","Sodium Laureth Sulfate","Jojoba Oil","Cocamidopropyl Betaine","Panthenol","Glycerin","Aloe Vera","Parfum","Methylisothiazolinone"]},
+{id:3,brand:"PHYTO",name:"Phytomillesime Color-Protecting Mask",category:"Treatment",ingredients:["Aqua","Cetearyl Alcohol","Behentrimonium Chloride","Wheat Protein","Sunflower Oil","Argan Oil","Panthenol","Parfum","Linalool","Citronellol"]},
+{id:4,brand:"PHYTO",name:"Phytolaque Botanical Hair Spray",category:"Styling",ingredients:["Alcohol Denat","VA/Crotonates Copolymer","Aminomethyl Propanol","Parfum","Linalool","Limonene","Geraniol"]},
+{id:5,brand:"OWAY",name:"Rebuilding Hair Bath",category:"Shampoo",ingredients:["Aqua","Sodium Cocoyl Isethionate","Cocamidopropyl Betaine","Biodynamic Wheat Protein","Guar Hydroxypropyltrimonium Chloride","Panthenol","Rose Hip Oil","Parfum","Benzyl Alcohol"]},
+{id:6,brand:"OWAY",name:"Smooth and Frizz-Free Hair Bath",category:"Shampoo",ingredients:["Aqua","Sodium Cocoyl Isethionate","Argan Oil","Cocamidopropyl Betaine","Glycerin","Shea Butter","Keratin","Parfum","Phenoxyethanol","Sodium Benzoate"]},
+{id:7,brand:"OWAY",name:"Volumizing Hair Bath",category:"Shampoo",ingredients:["Aqua","Sodium Laureth Sulfate","Nettle Extract","Rosemary Extract","Cocamidopropyl Betaine","Panthenol","Citric Acid","Parfum","Methylchloroisothiazolinone"]},
+{id:8,brand:"OWAY",name:"Biodynamic Color Activator",category:"Color",ingredients:["Aqua","Hydrogen Peroxide","Cetearyl Alcohol","Phosphoric Acid","Ceteareth-20","Etidronic Acid","Sodium Benzoate"]},
+{id:9,brand:"OWAY",name:"Hcolor Permanent Hair Color",category:"Color",ingredients:["Aqua","Cetearyl Alcohol","p-Phenylenediamine","Resorcinol","Ammonium Hydroxide","Cocamide DEA","Parfum","Propylene Glycol","Sodium Sulfite"]},
+{id:10,brand:"PAUL MITCHELL",name:"Tea Tree Special Shampoo",category:"Shampoo",ingredients:["Aqua","Sodium Laureth Sulfate","Tea Tree Oil","Peppermint Oil","Lavender Oil","Cocamidopropyl Betaine","Citric Acid","Parfum","Methylisothiazolinone"]},
+{id:11,brand:"PAUL MITCHELL",name:"Super Strong Shampoo",category:"Shampoo",ingredients:["Aqua","Sodium Laureth Sulfate","Cocamidopropyl Betaine","Keratin","Silk Protein","Panthenol","DMDM Hydantoin","Parfum","Formaldehyde Releaser"]},
+{id:12,brand:"PAUL MITCHELL",name:"Awapuhi Wild Ginger Keratin Cream Rinse",category:"Conditioner",ingredients:["Aqua","Behentrimonium Chloride","Cetearyl Alcohol","Awapuhi Extract","Keratin","Ginger Extract","Dimethicone","Parfum","Linalool","Benzyl Alcohol"]},
+{id:13,brand:"PAUL MITCHELL",name:"Extra Body Sculpting Foam",category:"Styling",ingredients:["Aqua","Alcohol Denat","PVP","Dimethicone","Panthenol","Parfum","Limonene","Linalool"]},
+{id:14,brand:"PAUL MITCHELL",name:"Gloss Drops Serum",category:"Treatment",ingredients:["Cyclopentasiloxane","Dimethicone","Dimethiconol","Parfum","Tocopheryl Acetate"]},
+{id:15,brand:"INFLUENCE",name:"Hydrating Shampoo",category:"Shampoo",ingredients:["Aqua","Sodium Cocoyl Glutamate","Cocamidopropyl Betaine","Glycerin","Panthenol","Aloe Vera","Chamomile Extract","Parfum","Phenoxyethanol"]},
+{id:16,brand:"INFLUENCE",name:"Repair and Strengthen Mask",category:"Treatment",ingredients:["Aqua","Cetearyl Alcohol","Behentrimonium Chloride","Wheat Protein","Argan Oil","Biotin","Panthenol","Parfum","Benzyl Benzoate","Eugenol"]},
+{id:17,brand:"INFLUENCE",name:"Curl Defining Cream",category:"Styling",ingredients:["Aqua","Glycerin","Shea Butter","Coconut Oil","Flaxseed Extract","Behentrimonium Chloride","Parfum","Linalool","Geraniol","Phenoxyethanol"]}
+];
+const DC=[{id:1,name:"Sarah M.",allergens:["p-Phenylenediamine","Parfum","Linalool"]},{id:2,name:"Jessica R.",allergens:["Wheat Protein","Keratin","Methylisothiazolinone"]},{id:3,name:"Amanda T.",allergens:["Sodium Laureth Sulfate","Cocamidopropyl Betaine"]}];
+let P=JSON.parse(localStorage.getItem('ks_p')||'null')||DP;
+let C=JSON.parse(localStorage.getItem('ks_c')||'null')||DC;
+let selId=null,expId=null,nA=[];
+function sv(){localStorage.setItem('ks_p',JSON.stringify(P));localStorage.setItem('ks_c',JSON.stringify(C));document.getElementById('bp').textContent=P.length+' products';document.getElementById('bc').textContent=C.length+' clients';}
+function showPage(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById('page-'+id).classList.add('active');btn.classList.add('active');if(id==='checker')rC();if(id==='products')rP();if(id==='clients')rCl();}
+function onCS(){const v=document.getElementById('cs').value;selId=v?parseInt(v):null;expId=null;const c=C.find(x=>x.id===selId);const ap=document.getElementById('ap');const sr=document.getElementById('sr');if(c){ap.style.display='block';sr.style.display='grid';document.getElementById('apills').innerHTML=c.allergens.map(a=>'<span class="pill pill-al">'+a+'</span>').join('');}else{ap.style.display='none';sr.style.display='none';}rC();}
+function gCA(){const c=C.find(x=>x.id===selId);return c?c.allergens.map(a=>a.toLowerCase()):[]; }
+function pSf(p){const ca=gCA();if(!ca.length)return{safe:true,matches:[]};const m=p.ingredients.filter(i=>ca.some(a=>i.toLowerCase().includes(a)));return{safe:m.length===0,matches:m};}
+function rC(){const s=document.getElementById('si').value.toLowerCase();const br=document.getElementById('fb').value;const ct=document.getElementById('fc').value;const ca=gCA();let f=P.filter(p=>{if(br&&p.brand!==br)return false;if(ct&&p.category!==ct)return false;if(s&&!p.name.toLowerCase().includes(s)&&!p.ingredients.some(i=>i.toLowerCase().includes(s)))return false;return true;});let sc=0,uc=0;const html=f.map(p=>{const{safe,matches}=pSf(p);if(selId){safe?sc++:uc++;}const exp=expId===p.id;const cc=selId?(safe?'sc':'uc'):'';const ic=selId?'<span style="font-size:18px">'+(safe?'&#9989;':'&#128683;')+'</span>':'';const ab=(!safe&&matches.length)?'<div class="abox"><div class="atitle">&#9888;&#65039; ALLERGEN DETECTED</div><div class="prow">'+matches.map(m=>'<span class="pill pill-al" style="font-size:11px">'+m+'</span>').join('')+'</div></div>':'';const es=exp?'<div class="exps"><div class="expl">Full Ingredient List</div><div class="prow">'+p.ingredients.map(i=>{const d=ca.some(a=>i.toLowerCase().includes(a));return'<span class="pill pill-i'+(d?' danger':'')+'">'+i+'</span>';}).join('')+'</div></div>':'';return'<div class="pcard '+cc+'" onclick="tE('+p.id+')"><div class="pch"><div class="pcb"><span class="pill pill-br" style="background:'+BC[p.brand]+'">'+p.brand+'</span><span class="pill pill-ct">'+p.category+'</span></div>'+ic+'</div><div class="pname">'+p.name+'</div>'+ab+es+'<div class="th">Tap to '+(exp?'collapse':'view all ingredients')+'</div></div>';}).join('');document.getElementById('pg').innerHTML=html||'<div class="empty"><div class="ei">&#127807;</div><div class="et">No products match your filters.</div></div>';document.getElementById('ss').textContent=sc;document.getElementById('su').textContent=uc;document.getElementById('st').textContent=f.length;}
+function tE(id){expId=expId===id?null:id;rC();}
+function rP(){const brands=['PHYTO','OWAY','PAUL MITCHELL','INFLUENCE'];document.getElementById('bs').innerHTML=brands.map(br=>{const bp=P.filter(p=>p.brand===br);if(!bp.length)return'';return'<div class="bsec"><div class="bh" style="background:'+BC[br]+'">'+br+' <span>('+bp.length+' products)</span></div>'+bp.map(p=>'<div class="bpr"><div class="bpt"><div><span class="bpn">'+p.name+'</span><span class="pill pill-ct" style="margin-left:8px">'+p.category+'</span></div><span class="ic">'+p.ingredients.length+' ings</span></div><div class="prow" style="margin-top:6px">'+p.ingredients.map(i=>'<span class="pill pill-i">'+i+'</span>').join('')+'</div></div>').join('')+'</div>';}).join('');}
+let sAP=false;function tAP(){sAP=!sAP;document.getElementById('apf').style.display=sAP?'block':'none';}
+function sP(){const name=document.getElementById('npn').value.trim();if(!name){sT('Please enter a product name');return;}const ings=document.getElementById('npi').value.split(',').map(i=>i.trim()).filter(Boolean);P.push({id:Date.now(),brand:document.getElementById('npb').value,category:document.getElementById('npc').value,name,ingredients:ings});sv();document.getElementById('npn').value='';document.getElementById('npi').value='';sAP=false;document.getElementById('apf').style.display='none';rP();pS();sT('&#9989; Product saved!');}
+function rCl(){if(!C.length){document.getElementById('cg').innerHTML='<div class="empty"><div class="ei">&#128100;</div><div class="et">No clients yet.</div></div>';return;}document.getElementById('cg').innerHTML=C.map(c=>{const uc=P.filter(p=>p.ingredients.some(i=>c.allergens.some(a=>i.toLowerCase().includes(a.toLowerCase())))).length;return'<div class="ccard"><div class="cch"><div class="cname">'+c.name+'</div><button class="btn btn-p btn-sm" onclick="chkC('+c.id+')">Check &#8594;</button></div><div style="font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Allergens ('+c.allergens.length+')</div><div class="prow">'+(c.allergens.length?c.allergens.map(a=>'<span class="pill pill-al">'+a+'</span>').join(''):'<span style="color:#bbb;font-size:12px">None recorded</span>')+'</div><div class="csafe '+(uc>0?'u':'s')+'"><span>'+(uc>0?'&#128683; '+uc+' products to avoid':'&#9989; All products safe')+'</span></div></div>';}).join('');}
+function chkC(id){selId=id;document.getElementById('cs').value=id;document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById('page-checker').classList.add('active');document.querySelectorAll('.tab')[0].classList.add('active');onCS();window.scrollTo(0,0);}
+let sAC=false;function tAC(){sAC=!sAC;if(sAC){nA=[];document.getElementById('ncn').value='';document.getElementById('ncc').value='';rT();uP();}document.getElementById('acf').style.display=sAC?'block':'none';}
+function cAC(){sAC=false;nA=[];document.getElementById('acf').style.display='none';}
+function rT(){document.getElementById('at').innerHTML=AL.map(a=>{const s=nA.includes(a);return'<button class="ptog'+(s?' sel':'')+'" onclick="tNA(''+a+'')">'+(s?'&#10003; ':'')+a+'</button>';}).join('');}
+function tNA(a){if(nA.includes(a))nA=nA.filter(x=>x!==a);else nA.push(a);rT();uP();}
+function aCA(){const v=document.getElementById('ncc').value.trim();if(v&&!nA.includes(v))nA.push(v);document.getElementById('ncc').value='';rT();uP();}
+function uP(){const pv=document.getElementById('sap');if(!nA.length){pv.style.display='none';return;}pv.style.display='block';document.getElementById('sc2').textContent=nA.length+' selected';document.getElementById('spp').innerHTML=nA.map(a=>'<span class="pill pill-al" onclick="tNA(''+a+'')" style="cursor:pointer">'+a+' &#215;</span>').join('');}
+function sCl(){const name=document.getElementById('ncn').value.trim();if(!name){sT('Please enter a client name');return;}C.push({id:Date.now(),name,allergens:[...nA]});sv();cAC();pS();rCl();sT('&#9989; Client saved!');}
+function pS(){const sel=document.getElementById('cs');const cur=sel.value;sel.innerHTML='<option value="">&#8212; No client selected (show all products) &#8212;</option>'+C.map(c=>'<option value="'+c.id+'">'+c.name+' ('+c.allergens.length+' allergens)</option>').join('');sel.value=cur;}
+function sT(msg){const t=document.getElementById('toast');t.innerHTML=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+sv();pS();rC();
+</script>
+</body>
+</html>
